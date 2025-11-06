@@ -251,3 +251,194 @@ Notate che, anche in questo caso, i metodi non hanno modificato la stringa a cui
 > #### Esercizio 1.3
 > Scrivete un programma contenente come unica istruzione `import this`. Eseguite il programma e leggete ciò che viene visualizzato sul terminale.
 >
+
+## Lezione 2
+
+Ecco il risultato dell'esecuzione del comando `import this`, citato nell'ultimo esercizio.
+
+```
+The Zen of Python, by Tim Peters
+
+Beautiful is better than ugly.
+Explicit is better than implicit.
+Simple is better than complex.
+Complex is better than complicated.
+Flat is better than nested.
+Sparse is better than dense.
+Readability counts.
+Special cases aren't special enough to break the rules.
+Although practicality beats purity.
+Errors should never pass silently.
+Unless explicitly silenced.
+In the face of ambiguity, refuse the temptation to guess.
+There should be one-- and preferably only one --obvious way to do it.
+Although that way may not be obvious at first unless you're Dutch.
+Now is better than never.
+Although never is often better than *right* now.
+If the implementation is hard to explain, it's a bad idea.
+If the implementation is easy to explain, it may be a good idea.
+Namespaces are one honking great idea -- let's do more of those!
+```
+
+La maggior parte di queste considerazioni vale per ogni linguaggio di programmazione: tenetelo a mente, quando programmate! ;)
+
+
+
+### Stringhe formattate
+
+Le stringhe formattate, o f-stringhe (*f-string* in inglese), possono essere utilizzate, tra l'altro, per inserire all'interno di stringhe *espressioni* che devono essere valutate, come ad esempio variabili, o funzioni e calcoli di cui ci serve il risultato.
+Una f-stringa è denotata da una `f` che precede la stringa. Le espressioni da valutare in una f-stringa sono racchiuse tra `{}`.
+
+```py
+nome = "ada"
+cognome = "lovelace"
+stringa = f"{nome.title()} {cognome.title()} è ricordata come la prima programmatrice al mondo!"
+print(stringa)
+```
+
+Il precedente programma stampa il contenuto della variabile `stringa`, ovvero:
+```
+Ada Lovelace è ricordata come la prima programmatrice al mondo!
+```
+
+### Caratteri speciali
+
+L'istruzione
+```
+print("Languages:\n\tPython\n\tC\n\tJavaScript")
+```
+
+stampa
+```
+Languages:
+  Python
+  C
+  JavaScript
+```
+
+La sequenza `\n` rappresenta un unico carattere: il carattere di *invio* (a capo). La sequenza `\t` rappresenta un unico carattere: il carattere di tabulazione (*tab*).
+
+
+I caratteri di *spaziatura* (*whitespace*) all'inizio e alle fine di una stringa possono essere eliminati con i metodi `lstrip()`, `rstrip` e `strip`. Ad esempio, se `stringa = ' pippo '`, l'esecuzione di `stringa.lstrip()` restituisce la stringa `'pippo '`, eliminando lo spazio a sinistra (*left* strip).
+
+
+### I numeri
+
+Eseguiamo sulla console di Python alcuni comandi che coinvolgono numeri piuttosto che stringhe, come invece era stato fatto sinora.
+
+```py
+>>> num = 5
+>>> num
+5
+>>> num + 4
+9
+>>> 18 + 5
+23
+>>> 18 - 5
+13
+>>> 18 * 5
+90
+>>> 5/2
+2.5
+>>> 5//2
+2
+>>> 5%2
+1
+>>> 5**2
+25
+```
+
+I risultati restituiti dovrebbero essere abbastanza chiari. Osserviamo che `/` rappresenta la divisione, mentre `//` rappresenta una divisione intera (che produce quindi un quoziente intero). Il resto di una divisione intera è calcolato grazie all'operatore `%`. Infine, l'operatore `**` permette l'elevamento a potenza.
+
+Il seguente esempio mostra il comportamento dell'interprete Python in alcuni casi particolari.
+
+```py
+>>> "Mario" + 2
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: can only concatenate str (not "int") to str
+>>> "2" + "2"
+'22'
+>>> 5.5 + 2
+7.5
+>>> 5.5 + 2.09
+7.59
+>>> "5.5" + "2"
+'5.52'
+>>> num_grande = 1000000000
+>>> num_grande
+1000000000
+>>> num_grande = 1_000_000_000
+>>> num_grande
+1000000000
+>>> x = 4
+>>> y = 4
+>>> area = x*y
+>>> area
+16
+>>> x, y = 4,4
+>>> x
+4
+>>> y
+4
+>>> x,y,z = 1,2,3
+>>> x
+1
+>>> y
+2
+>>> z
+3
+>>> x,y = y,x
+>>> x
+2
+>>> y
+1
+```
+
+Osserviamo che istruzioni come `x,y,z = 1,2,3` permettono l'assegnamento contemporaneo di più valori a diverse variabili. L'esecuzione di `x,y=y,x`, in particolare, provoca lo scambio di valori tra le due variabili `x` e `y`.
+
+## Tipi di dato
+
+La funzione `type()` di Python restituisce il tipo di dato di un oggetto.
+
+```py
+>>> type(2)
+<class 'int'>
+>>> type(4.67)
+<class 'float'>
+>>> type('Ada Lovelace')
+<class 'str'>
+>>> type(f'Il dado ha {3+3} facce')
+<class 'str'>
+```
+
+Gli `int` sono numeri interi, i `float` sono numeri decimali (in *virgola mobile*), mentre il tipo `str` rappresenta le stringhe.
+
+
+## Commenti
+
+Potete aggiungere commenti al codice o commentare istruzioni perché non siano eseguite inserendo a inizio riga il simbolo `#`.
+
+Ad esempio:
+```py
+# Questo è un commento
+print('Questo no')
+# print('Io non verrò stampata, perché l'istruzione è commentata')
+```
+
+In VS Code potete selezionare una o più righe da commentare e premere **ctrl+ù** per commentare tutto il blocco selezionato. Eseguendo la stessa operazione su un blocco di codice già commentato, le righe vengano decommentate.
+
+### Liste
+
+Una lista è una semplice *struttura dati* che contiene un elenco di elementi.
+Una lista è delimitata da parentesi quadre. La lista `[]` è una lista vuota, prima di elementi. La lista `['Pietro']` contiene un solo elemento: la stringa `'Pietro'`. Ecco un esempio che crea una lista di più elementi ed esegue alcune operazioni su di essa.
+
+```py
+studenti = ['Andrea','Giovanni','Marco','Giacomo','Maria']
+
+# Gli elementi in una lista sono accessibili tramite indice. Il primo elemento di una lista ha indice 0, il secondo 1, e così via
+print(studenti[0]) #stampa il primo elemento
+print(f'Il secondo elemento della lista, scritto in maiuscolo, è {studenti[1].upper()}')
+
+studenti[0] = 'Andreina' # modifica il primo elemento in Andreina
+```
