@@ -329,7 +329,7 @@ Eseguiamo sulla console di Python alcuni comandi che coinvolgono numeri piuttost
 ```py
 >>> num = 5
 >>> num
-5
+5  
 >>> num + 4
 9
 >>> 18 + 5
@@ -442,3 +442,143 @@ print(f'Il secondo elemento della lista, scritto in maiuscolo, è {studenti[1].u
 
 studenti[0] = 'Andreina' # modifica il primo elemento in Andreina
 ```
+
+## Lezione 3
+
+```py
+# Prepariamo una lista con i nomi di alcuni studenti
+studenti = ['Andrea','Giovanni','Marco','Giacomo','Maria']
+
+# Gli elementi in una lista sono accessibili tramite indice. Il primo elemento di una lista ha indice 0, il secondo 1, e così via
+print(studenti[0]) #stampa il primo elemento
+print(f'Il secondo elemento della lista, scritto in maiuscolo, è {studenti[1].upper()}')
+
+studenti[0] = 'Andreina' # modifica il primo elemento in Andreina
+
+studenti.append('Lucia') # aggiunge l'elemento Lucia in fondo alla lista
+
+print(studenti) # stampa: ['Andreina', 'Giovanni', 'Marco', 'Giacomo', 'Maria', 'Lucia']
+
+presenti = [] # crea una nuova lista, vuota
+presenti.append(studenti[0])
+presenti.append(studenti[1])
+presenti.append(studenti[3])
+print(presenti) # stampa: ['Andreina', 'Giovanni', 'Giacomo']
+
+print(len(studenti)) # stampa 6, la lunghezza, ovvero il numero di elementi, della lista studenti
+print(f'Ci sono {len(studenti)-len(presenti)} assenti')
+
+del studenti[0] # cancella l'elemento in posizione 0 dalla lista
+print(studenti) # stampa: ['Giovanni', 'Marco', 'Giacomo', 'Maria', 'Lucia']
+
+studenti.pop() # rimuove l'ultimo elemento della lista (e ne restituisce il valore)
+print(studenti) # stampa: ['Giovanni', 'Marco', 'Giacomo', 'Maria']
+
+print(studenti.pop(2)) # il metodo pop() rimuove l'elemento in posizione 2, la print riceve il valore rimosso e lo stampa
+print(studenti) # stampa: ['Giovanni', 'Marco', 'Maria']
+
+studenti.remove('Marco')
+print(studenti) # stampa: ['Giovanni', 'Maria']
+
+nome_da_rimuovere = 'Giovanni'
+studenti.remove(nome_da_rimuovere)
+print(studenti) # stampa: ['Maria']
+```
+
+Testiamo nella console di Python alcuni uso particolari degli indici. Notate la possibilità di *contare dalla fine* della lista (usando indici negativi) e gli errori che vengono segnalati.
+
+```py
+>>> lista = ['Ada','Ava','Eva']
+>>> lista[-1]
+'Eva'
+>>> lista[3]  
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: list index out of range
+>>> lista[-3] 
+'Ada'
+>>> lista[-4] 
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: list index out of range
+```
+
+Eseguiamo ora alcune operazioni sulle liste, tra cui gli ordinamenti. Come esempio, inseriamo in una lista alcune pizze disponibili in una pizzeria.
+
+```py
+pizze=["margherita","diavola","4 stagioni","romana","kebab"]
+
+print(pizze) # stampa: ['margherita', 'diavola', '4 stagioni', 'romana', 'kebab']
+print(pizze[0])
+
+pizze.reverse()
+print("menù invertito (rispetto all'ordine attuale) ", pizze) # stampa: ['kebab', 'romana', '4 stagioni', 'diavola', 'margherita']
+
+pizze.sort()
+print("menù ordinato: ", pizze)  # stampa: ['4 stagioni', 'diavola', 'kebab', 'margherita', 'romana']
+
+pizze.sort(reverse=True)
+print("menù in ordine inverso: ", pizze) # stampa: ['romana', 'margherita', 'kebab', 'diavola', '4 stagioni']
+
+pizze.append("marinara")
+pizze.remove("kebab")
+print("menù aggiornato", pizze) # stampa: ['romana', 'margherita', 'diavola', '4 stagioni', 'marinara']
+```
+
+Scorriamo le liste con il *ciclo* `for`.
+Occorre prestare molta attenzione nell'uso del costrutto `for`: dopo l'istruzione `for` tutte le istruzioni che ne fanno parte devono rientrare (si dice: devono essere *indentate*)
+L'istruzione `for pizza in pizze:` prende a uno a uno tutti gli elementi della lista `pizze` e li mette nella variabile `pizza`. Al primo *passo* del ciclo nella variabile `pizza` finisce l'elemento `pizze[0]` e vengono eseguite tutte le righe indentate che seguono il `for`. Si torna poi all'inizio del ciclo, `pizza` prende valore `pizze[1]` e si rieseguono le stesse istruzioni, con il nuovo valore di `pizza`. L'esecuzione prosegue così fino a quando `pizze` non ha più elementi.
+
+```py
+pizze=["margherita","diavola","4 stagioni","romana","kebab"]
+n=0
+# Il ciclo seguente visualizza la lista delle pizze in formato:
+# 1 -  margherita
+# 2 -  diavola
+# 3 -  4 stagioni
+# 4 -  romana
+# 5 -  kebab
+for pizza in pizze:
+    n+=1
+    print(n, "- ", pizza)
+
+# Il ciclo seguente invece mantiene la visualizzazione su una riga (con un "piccolo" difetto nella stampa dell'ultima pizza)
+print("Nel nostro ristorante potrete trovare: ",end="")
+for pizza in pizze:
+    print(pizza, end=", ")
+
+print()
+
+# Il ciclo seguente compone la scritta da stampare pezzo per pezzo, grazie al ciclo. Poi stampa l'intera scritta, dopo averla ripulita dalla virgola finale:
+#
+    
+scritta = "Nel nostro ristorante potrete trovare: "
+for pizza in pizze:
+    scritta += pizza + ', '
+
+scritta = scritta.removesuffix(', ')
+print(scritta)
+```
+
+Vi propongo in chiusura alcuni esercizi, parzialmente già risolti in classe.
+
+> #### Esercizio 3.1
+>
+> Preparate una lista contenente tutti i voti che avete preso in Matematica dall'inizio dell'anno (inserite nella lista almeno 3 voti: se non ne avete 3, inventatene voi qualcuno). Calcolate e stampate il voto massimo, il voto minimo e la media dei voti.
+> Se volete, potete utilizzare le funzioni `max`, `min` e `sum` di Python che calcolano, rispettivamente, il valore massimo, il minimo e la somma dei valori di una lista.
+>
+> Fate la stessa cosa con i voti di Italiano.
+
+
+> #### Esercizio 3.2
+>
+> Usando le due liste costruite per l'esempio precedente, provate a calcolare e visualizzare il voto massimo e il voto minimo tra tutti i voti che avete preso, indipendentemente dalla materia.
+> Calcolate poi la media complessiva di tutti i voti.
+>
+
+> #### Esercizio 3.3
+>
+> Usando ancora le due liste costruite per l'esempio precedente, calcolate la materia in cui andate meglio. Visualizzate poi sullo schermo un messaggio come questo (utilizzando i vostri dati):
+> 
+> *La materia in cui vai meglio è matematica. In matematica hai preso finora i seguenti voti: 7, 8, 9, 10*
+>
