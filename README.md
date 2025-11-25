@@ -582,3 +582,138 @@ Vi propongo in chiusura alcuni esercizi, parzialmente già risolti in classe.
 > 
 > *La materia in cui vai meglio è matematica. In matematica hai preso finora i seguenti voti: 7, 8, 9, 10*
 >
+
+## Lezione 4
+
+### Come risolvere gli esercizi assegnati: operazioni sulle liste di numeri
+
+Ecco un po' di esempi di operazioni su liste di numeri. Viene introdotto anche l'uso di `range()`, che genera un intervallo di numeri da un minimo a un massimo (eventualmente con una certa distanza, o passo, tra loro).
+
+```py
+n=10
+# range(n) genera l'intervallo di numeri da 0 a n-1(fino cioè a n escluso!)
+for x in range(n):
+  print(x,end=' ') # stampa: 0 1 2 3 4 5 6 7 8 9 
+
+print()
+# range(m,n) genera l'intervallo di numeri da m a n-1 (fino cioè a n escluso!)
+m=3
+for x in range(m,n):
+  print(x,end=' ') # stampa: 3 4 5 6 7 8 9 
+
+print()
+# range(m,n,p) genera l'intervallo di numeri da m a n-1 con incremento di p (e non più di 1)
+m=3
+for x in range(m,n,2):
+  print(x,end=' ') # stampa: 3 5 7 9 
+
+print()
+
+for x in range(4):
+   print('Ciao mondo!') # stampa: 'Ciao mondo!' 4 volte 
+
+print()
+n = 100
+# Calcoliamo la somma dei primi n numeri interi
+somma=0
+for x in range(1,n+1):
+    somma += x 
+print(somma) # stampa 5050
+
+print(n*(n+1)//2) # stampa la stessa somma calcolata con la formula di Gauss
+
+lista_numeri=list(range(n+1)) #crea una lista di numeri tra 1 e 100
+print(sum(lista_numeri)) # stampa la solita somma calcolata mediante la funzione sum() di Python
+print(sum(range(1,n+1))) # come sopra, ma usando sum direttamente sul range()
+
+lista=[10, 20, 30, 40]
+somma = 0
+# somma tutti i valori in lista maggiorati del 10% se l'elemento ha indice dispari, del 20% se l'elemento ha indice pari
+for indice in range(0,len(lista),2):
+    print(indice)
+    somma += lista[indice] * 1.2 # stiamo scorrendo le posizioni pari: somma maggiorato del 20%
+for indice in range(1,len(lista),2):
+    print(indice)
+    somma += lista[indice] * 1.1 # stiamo scorrendo le posizioni pari: somma maggiorato del 10%
+
+print(somma) # stampa 114 = (10+30)*1,2 + (20+40)*1,1
+```
+
+### La funzione `input()`
+
+La funzione `input()` di Python ci permette di leggere un valore dall'input, solitamente inserito dall'utente. Il valore letto viene restituito da `input()` come una stringa, anche se si tratta di un numero o di un dato di altro tipo. È possibile passare alla funzione `input()` un parametro: la stringa da visualizzare per richiedere all'utente di inserire l'input.
+
+Nel seguente esempio la prima riga di codice visualizza il messaggio `Come ti chiami? `. Il programma resta poi in attesa dell'input dell'utente. Quando l'utente avrà finito di digitare il testo e premuto invio, il testo digitato verrà restituito dalla funzione `input()` e assegnato alla variabile `nome`. La riga successiva stampa il messaggio `Ciao {nome}`, dove `nome` è il testo inserito dall'utente.
+
+```py
+nome = input("Come ti chiami? ")
+print(f'Ciao {nome}')
+```
+
+### Conversione di tipo
+
+Chiediamo ora all'utente di inserire un numero invece che del testo, mediante l'istruzione:
+
+```py
+num = input("Pensa a un numero. Che numero hai pensato? ")
+```
+
+Eseguendo ora `print(type(num))` otteniamo in risposta `<class 'str'>`. Il valore letto è quindi memorizzato in `num` come stringa. Ipotizziamo che `num` contenga il valore `'23'` proviamo ad eseguire dei calcoli con `num`. Eseguendo `doppio = num * 2` e stampando il valore di `doppio` otteniamo un risultato indesiderato: `2323`, cioè il "doppio" di una stringa. Eseguendo invece `somma = num + 2` ci viene segnalato un errore, perché con l'operatore `+` possiamo solo sommare *due* numeri o concatenare *due* stringhe. Per sistemare questo problema, e visto che nel nostro programma quando leggiamo un numero vogliamo utilizzarlo come tale, convertiamo la stringa in numero mediante la funzione `int()`, come segue:
+
+```py
+num = int(input("Pensa a un numero. Che numero hai pensato? "))
+```
+
+Dopo l'esecuzione di questa istruzione, la variabile num conterrà effettivamente un numero intero, se il valore letto in input può essere effettivamente convertito in intero (altrimenti, ad esempio se viene inserito `ciao`, viene segnalato un errore). Esistono numerose altre funzione di conversione, ad esempio `str()`, `float()`, `bool()`. Tutte queste funzioni provano a convertire il parametro ricevuto nel tipo desiderato.
+
+
+Costruiamo ora un programma in grado di indovinare il numero pensato dall'utente.
+
+```py
+num = int(input("Pensa a un numero. Che numero hai pensato? "))
+print(f'Il numero che hai pensato è più grande di {num-1} e più piccolo di {num+1}')
+print(f'Indovino... hai pensato {num}')
+```
+
+### Un esempio: calcolare la media dei voti un ciclo
+
+
+```py
+# saluti iniziali :)
+nome = input('Inserisci il tuo nome: ')
+print(f'Ciao {nome}')
+
+# preparazione di una lista vuota che conterrà i voti
+voti_matematica = []
+
+# leggo nella variabile n il numero di voti che l'utente vuole inserire
+n = int(input("Quanti voti vuoi inserire?"))
+
+# leggo n voti ad uno ad uno mediante un ciclo e li inserisco nella lista
+for i in range(n):
+    voto = int(input(f"Inserisci il voto numero {i+1}:"))
+    voti_matematica.append(voto)
+
+# stampa di prova: stampo tutta la lista
+# print(voti_matematica)
+
+# Si potrebbe usare la funzione sum per la somma...
+# somma = sum(voti_matematica)
+
+# Ma noi la calcoliamo con un ciclo (che conta anche, nella variabile i, il numero di iterazioni del ciclo)
+somma = 0
+i = 0
+for voto in voti_matematica:
+    i += 1
+    somma += voto
+    # stampa di prova, per vedere cosa succede ad ogni iterazione
+    # print(f'Iterazione {i}: somma vale {somma}')
+
+# Calcolo e stampa della media
+print(f'La media dei tuoi voti è {somma/i}')
+
+# for voto in voti_matematica:
+#     print(f'- {voto}')
+
+print('Fine')
+```
