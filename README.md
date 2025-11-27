@@ -717,3 +717,203 @@ print(f'La media dei tuoi voti è {somma/i}')
 
 print('Fine')
 ```
+
+
+
+
+
+
+
+
+## Lezione 5
+
+### Ripasso
+
+```py
+# Lista
+lista = [23,235,12,135]
+
+# Ciclo su lista
+for x in lista:
+  print(x)
+
+# Ciclo che esegue per n volte un po' di operazioni
+for i in range(4):
+  print(i)
+
+# Lettura da tastiera (...e trasformazione del valore letto in un intero)
+voto = int(input("Inserisci un giudizio per questo corso (da 1 a 10):"))
+```
+
+### Il ciclo `while`
+
+Il costrutto `while` è un'alternativa al `for`, che abbiamo già visto, per realizzare un ciclo. La sintassi del `while` è la seguente:
+```py
+while condizione:
+    blocco_istruzioni
+```
+
+Quando si incontra un costrutto `while` viene testata la `condizione`: se risulta vera allora si entra nel ciclo, si esegue `blocco_istruzioni`, e si torna a testare la `condizione` per decidere se ripetere nuovamente l'esecuzione di `blocco_istruzioni`. Quando `condizione` è falsa si *esce dal ciclo*, proseguendo con l'istruzione successiva al `while` (in Python, la prima non indentata dopo il ciclo).
+
+Ad esempio, il seguente ciclo stampa tutti i numeri da `1` a `5`, dopodiché stampa la scritta `fine`.
+
+```py
+numero = 1
+while numero <= 5 and numero > 0:
+    print(numero)
+    numero += 1
+
+print('fine')
+```
+
+Qui, la variabile `numero` vale inizialmente `1`. Si testa poi la condizione `numero <= 5 and numero > 0`, che risulta vera (perché `numero` è minore di 5 e anche maggiore di 0). Si entra allora nel ciclo dove si stampa `numero` (cioè il valore `1`) e poi si incrementa `numero`, che diventa `2`. Poiché la condizione risulta ancora vera si ripete il ciclo, e poi ancora e ancora, finché dopo qualche iterazione `numero` viene incrementato a `6` e il test della condizione da esito negativo (perché `6>5`). A quel punto si esce dal ciclo e viene stampata la stringa `fine`.
+
+Il ciclo appena visto è in effetti più semplice da realizzare con un `for`. Ecco un altro esempio di ciclo `while` dove invece sembra più naturale l'utilizzo del `while` piuttosto che del `for`.
+
+```py
+print('Inserisci i nomi dei presenti. Termina con "quit"')
+presenti = []
+test = True
+nome = input()
+while nome != 'quit':
+    presenti.append(nome)
+    nome = input()
+
+print(presenti)
+```
+
+Questo ciclo legge una lista di nomi e li inserisce in un array. La lista non ha una dimensione fissata: l'inserimento termina quando viene letta la stringa `quit`. 
+
+Quando si utilizza un ciclo `while` occorre in generale che le istruzioni del ciclo modifichino i valori che vengono testati nella condizione, altrimenti si rischia un ciclo (o *loop*) infinito. Se, ad esempio, nel primo `while` che abbiamo scritto non modifichiamo il valore di `numero`, la condizione resta sempre vera e il programma non esce mai dal ciclo (continua a stampare lo stesso valore). 
+
+Nel nostro esempio iniziale vogliamo ripetere l'operazione di lettura fino a quando l'utente non inserisce un valore minore o uguale a 10.
+Possiamo farlo con un ciclo `while` come segue.
+
+```py
+while voto > 10:
+    print("Hai sbagliato. Devi inserire un valore <= 10.")
+    voto = int(input("Inserisci un giudizio per questo corso (da 1 a 10):"))
+```
+
+
+### Il costrutto di selezione `if`
+
+Salutiamo infine l'utente, ma facciamo in modo che il saluto sia diverso a seconda del voto ricevuto. Per eseguire codice differente a seconda del verificarsi di opportune condizioni utilizziamo il costrutto `if` del linguaggio. Ecco la sintassi del costrutto `if` nel linguaggio python:
+
+```py
+if condizione:
+    istruzioni
+```
+
+`condizione` deve essere una espressione valutabile come vera o falsa. Se `condizione` è vera, allora vengono eseguire le `istruzioni` interne all'`if`, ovvero quelle che seguono l'`if` e sono indentate.
+In caso contrario, se `condizione` è falsa, l'esecuzione continua con le eventuali istruzioni che seguono l'if. È anche possibile specificare istruzioni da eseguire solo quando `condizione` è falsa. Per farlo, si utilizza la clausola `else`, come segue:
+
+```py
+if condizione:
+    istruzioni_1
+else:
+    istruzioni_2
+```
+
+In questo caso le `istruzioni_1` vengono eseguite *solo* quando `condizione` è vera, mentre le `istruzioni_2` vengono eseguite *solo* quando `condizione` è falsa. Nella sua versione più completa, il costrutto `if` di Python` si presenta così:
+
+```py
+if condizione_1:
+    istruzioni_1
+elif condizione_2:
+    istruzioni_2
+...
+else:
+    istruzioni_n
+```
+
+Questo `if` si comporta così: se `condizione_1` è vera viene eseguito il blocco di istruzioni `istruzioni_1`, altrimenti, se `condizione_2` è vera viene eseguito il blocco `istruzioni_2`, altrimenti, ...; altrimenti (dunque se nessuna delle precedenti condizioni risulta vera viene eseguito il blocco `istruzioni_n`. Possono essere presenti anche più clausole `elif`.
+
+Per costruire le condizioni da verificare facciamo uso di operatori di confronto come `<`, `<=` (minore o uguale), `>`, `>=` (maggiore o uguale), `==` (uguale a), `!=` (diverso da). Possiamo combinare più espressioni con gli operatori logici `and`, `or` e `not`: 
+- la condizione `C1 and C2` è vera solo se sia `C1` che `C2` sono vere; 
+- la condizione `C1 or C2` risulta vera quando almeno una tra `C1` e `C2` è vera;
+- la condizione `not C` (la negazione di `C`) è vera se `C` è falsa ed è falsa se `C` è vera.
+
+(Precisazione: diciamo che un'espressione è vera quando viene valutata a `True`; diciamo che è falsa se prende valore `False`)
+
+Alcuni esempio:
+- per testare se il valore di `x` è compreso tra `0` e `10` possiamo usare la condizione `x>=0 and x<=10`;
+- per testare se `x` è minore di `0` o maggiore di `10` possiamo usare la condizione precedente negata, `not(x>=0 and x<=10)`, oppure scrivere `x<0 or x>10`;
+- per testare se il valore di `x` è compreso tra `0` e `10` e quello di `y` è compreso tra `0` e `10`, possiamo scrivere `(x>=0 and x<=10) and (y>=0 and y<=10)`; in questo caso potremmo anche non usare le parentesi (anche se talvolta alcune parentesi inutili rendono più leggibile la condizione).
+
+
+Grazie all'uso dell'`if` possiamo concludere il nostro programma come segue:
+
+```py
+if voto >= 8:
+    print("Siamo contenti che il corso ti sia piaciuto")
+elif voto >= 6:
+    print("Grazie per averci votato.")
+else:
+    print("Ci dispiace che il corso non ti sia piaciuto :(") 
+
+print("Arrivederci al prossimo corso.")
+```
+
+> #### Esercizio
+> Scrivete un programma che legga da tastiera:
+>- numero di biglietti da acquistare
+>- costo del singolo biglietto
+>
+>Dopo aver letto i due valori, stampate il costo totale dell'acquisto tenendo conto dei seguenti sconti/supplementi:
+>- fino a 2 biglietti: 2€ di supplemento
+>- oltre i 5 biglietti: sconto 5%
+>- oltre i 10 biglietti: un biglietto omaggio
+>- oltre i 20 biglietti: 10% di sconto
+
+Ecco una possibile soluzione dell'esercizio assegnato.
+
+```py
+num = int(input("Quanti biglietti? "))
+costo = int(input("Quanto costa un biglietto? "))
+
+if (num<1):
+    print('Compra più biglietti!')
+elif num < 3:
+    print(f'Costo: {num}x{costo}+2 = {num*costo+2}€')
+elif num < 11:
+    print(f'Costo: ({num}x{costo})-5% = {num*costo*0.95}€')
+elif num < 21:
+    print(f'Costo: ({num}-1)x{costo} = {(num-1)*costo}€')
+else:
+    print(f'Costo: ({num}x{costo})-10% = {num*costo*0.9}€')
+```
+
+
+### Conclusioni
+
+Sono terminate le 10 ore di introduzione a Python. Se il ritmo è stato per voi troppo alto, potete approfittare di queste dispense per rivedere con calma quanto fatto. 
+
+Se, al contrario, avreste voluto fare di più (ma anche se il vostro giudizio è positivo o neutro!), potete segnalarlo nel questionario di soddisfazione che trovate qui:
+
+> https://www.issvigano.edu.it/servizio/questionari-di-soddisfazione/
+
+cercando "Giochi di Informatica". Siete invitati a compilarlo tutti esprimendo il vostro giudizio e aggiungendo eventuali osservazioni personali. 
+Vi prego di specificare nel campo per le osservazioni (oltre a tutto quello che volete scrivere) che avete partecipato al corso "Introduzione a Python" (durante l'anno, se possibile, si attiveranno altri corsi di programmazione e/o di sicurezza informatica). 
+
+Mi raccomando: continuate a programmare! ;)
+
+Se non sapete dove cercare esercizi da fare, potete chiedere a me o al vostro docente di informatica qualche esercizio o qualche riferimento per studiare argomenti più avanzati. Potete soprattutto (e siete caldamente invitati a farlo!!!) iscrivervi al portale di allenamento delle Olimpiadi di Informatica:
+
+> https://training.olinfo.it/
+
+Qui troverete un percorso di apprendimento con documenti, video ed esercizi (*algobadge*) e numerosi esercizi delle passate edizioni delle competizioni. Attenzione: negli esercizi più datati non sono ammesse soluzioni in Python :(
+
+Qui trovate, inoltre, tutti i link di riferimento per questa competizione (la principale gara di programmazione):
+
+> https://olinfo.it/
+
+Infine, qui
+
+> https://www.vigainsider.it/giochi/
+
+Trovate informazioni utili su molte iniziative (giochi, competizioni, corsi) di informatica a cui la nostra scuola ha aderito negli ultimi anni.
+
+Se vi servono informazioni scrivete. 
+
+Io aspetto le vostre iscrizioni ;)
